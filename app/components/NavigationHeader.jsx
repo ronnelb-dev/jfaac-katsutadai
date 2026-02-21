@@ -5,9 +5,8 @@ import { NavLink } from "react-router";
 const navItems = [
   { label: "Home", path: "/" },
   { label: "About Us", path: "/about" },
-  { label: "Ministries & Events", path: "/ministries" },
-  { label: "Visit Us", path: "/visit" },
-  { label: "Support Us", path: "/support" },
+  { label: "Ministries & Events", path: "/ministries-events" },
+  { label: "Support Us", path: "/support-us" },
 ];
 
 // ─── Active/inactive link class helpers ─────────────────────────────────────
@@ -117,10 +116,10 @@ export default function NavigationHeader() {
 
             {/* CTA button */}
             <NavLink
-              to="/support"
+              to="/visit-us"
               className="ml-2 rounded-full bg-green-600 px-5 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-sm transition-colors duration-200 hover:bg-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
             >
-              Join Now
+              Visit Us
             </NavLink>
           </nav>
 
@@ -194,7 +193,7 @@ export default function NavigationHeader() {
           {/* Mobile CTA */}
           <div className="mt-4 pt-4 border-t border-slate-100">
             <NavLink
-              to="/support"
+              to="/support-us"
               onClick={closeMenu}
               className="block w-full rounded-full bg-green-600 py-3 text-center text-sm font-bold uppercase tracking-widest text-white shadow-sm transition-colors duration-200 hover:bg-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
             >
