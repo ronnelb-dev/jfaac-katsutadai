@@ -65,22 +65,15 @@ export default function Home() {
   return (
     <main id="main-content">
       <Navigation />
-
       <HeroSection />
-
       <MorningDevotions />
-
-      <ChurchHistory />
-
-      <StatementOfFaith />
-
       <RecentPreaching />
-
       <Suspense fallback={<SectionLoader />}>
         <SundayServiceSection />
       </Suspense>
-
       <PrayerRequestSection />
+      <ChurchHistory />
+      <StatementOfFaith />
       <Footer />
     </main>
   );
