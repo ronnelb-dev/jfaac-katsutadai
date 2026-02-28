@@ -6,7 +6,6 @@ const SERVICE = {
   day:     "Every Sunday",
   address: "４Ｆ, 1 Chome-４-20 Katsutadai, Yachiyo-shi, Chiba, Japan, 276-0023",
   phone:   "+81 47-000-0000",
-  // Google Maps embed — coordinates centered on Katsutadai, Yachiyo-shi
   mapSrc:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.4!2d140.0553!3d35.7183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187d1c1234abcd%3A0x1234567890abcdef!2sKatsutadai%2C%20Yachiyo%2C%20Chiba%20276-0023%2C%20Japan!5e0!3m2!1sen!2sjp!4v1234567890",
   directionsUrl:
@@ -40,17 +39,17 @@ const INFO_ITEMS = [
   },
 ];
 
-// ─── SundayServiceSection ────────────────────────────────────────────────────
+// ─── SundayServiceSection ─────────────────────────────────────────────────────
 function SundayServiceSection() {
   return (
     <section
       aria-labelledby="service-heading"
-      className="bg-white py-20 sm:py-28"
+      className="bg-white py-3 sm:py-3"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* ── Section header ── */}
-        <div className="mb-14 flex flex-col items-center text-center">
+        <div className="mb-6 flex flex-col items-center text-center">
           <span className="mb-3 inline-block rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-700">
             Sunday Worship
           </span>
@@ -60,57 +59,92 @@ function SundayServiceSection() {
           <div className="mt-4 h-1 w-12 rounded-full bg-emerald-500" />
         </div>
 
-        {/* ── Info cards ── */}
-        <div className="mb-12 grid gap-6 sm:grid-cols-3">
-          {INFO_ITEMS.map(({ icon, label, value, sub }) => (
-            <div
-              key={label}
-              className="group rounded-2xl border border-emerald-100 bg-emerald-50 p-6 transition-all duration-300 hover:border-emerald-300 hover:shadow-md hover:shadow-emerald-100"
-            >
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-sm">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-5 w-5" aria-hidden="true">
-                  {icon}
-                </svg>
+        {/* ── Two-column layout ────────────────────────────────────────────────
+            Mobile (<lg):  stacks vertically — cards on top, map below
+            Desktop (lg+): side-by-side — cards column on left, map on right
+        ── */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-stretch">
+
+          {/* ── LEFT: info cards stacked vertically ── */}
+          <div className="flex flex-col gap-4">
+            {INFO_ITEMS.map(({ icon, label, value, sub }) => (
+              <div
+                key={label}
+                className="group flex flex-row items-start gap-4 rounded-2xl border border-emerald-100 bg-emerald-50 p-5 transition-all duration-300 hover:border-emerald-300 hover:shadow-md hover:shadow-emerald-100"
+              >
+                {/* Icon */}
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-sm">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.8}
+                    className="h-5 w-5"
+                    aria-hidden="true"
+                  >
+                    {icon}
+                  </svg>
+                </div>
+
+                {/* Text */}
+                <div className="min-w-0">
+                  <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-emerald-600">
+                    {label}
+                  </p>
+                  <p className="text-base font-bold text-slate-800">{value}</p>
+                  <p className="mt-0.5 text-sm leading-snug text-slate-500">{sub}</p>
+                </div>
               </div>
-              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-emerald-600">{label}</p>
-              <p className="text-base font-bold text-slate-800">{value}</p>
-              <p className="mt-1 text-sm leading-snug text-slate-500">{sub}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* ── Map + CTA ── */}
-        <div className="overflow-hidden rounded-3xl border border-slate-100 shadow-xl shadow-slate-100">
-          {/* Map embed */}
-          <div className="relative h-80 sm:h-96 lg:h-[440px] bg-emerald-50">
-            <iframe
-              title="JFAAC Katsutadai location on Google Maps"
-              src={SERVICE.mapSrc}
-              className="h-full w-full border-0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
+            ))}
           </div>
 
-          {/* CTA strip */}
-          <div className="flex flex-col items-center justify-between gap-4 bg-emerald-600 px-8 py-6 sm:flex-row">
-            <div>
-              <p className="text-base font-bold text-white">Ready to visit us?</p>
-              <p className="text-sm text-emerald-100">We'd love to welcome you this Sunday at 10:30 AM.</p>
+          {/* ── RIGHT: map + CTA ── */}
+          <div className="overflow-hidden rounded-3xl border border-slate-100 shadow-xl shadow-slate-100">
+            {/* Map embed — fills remaining height on desktop */}
+            <div className="relative h-56 bg-emerald-50 sm:h-72 lg:h-[calc(100%-72px)]">
+              <iframe
+                title="JFAAC Katsutadai location on Google Maps"
+                src={SERVICE.mapSrc}
+                className="h-full w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
             </div>
-            <a
-              href={SERVICE.directionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-2.5 text-sm font-bold text-emerald-700 shadow-sm transition-all duration-300 hover:bg-emerald-50 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-600"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-              Get Directions
-            </a>
+
+            {/* CTA strip */}
+            <div className="flex flex-col items-start justify-between gap-3 bg-emerald-600 px-6 py-4 sm:flex-row sm:items-center">
+              <div>
+                <p className="text-sm font-bold text-white">Ready to visit us?</p>
+                <p className="text-xs text-emerald-100">
+                  We'd love to welcome you this Sunday at 10:30 AM.
+                </p>
+              </div>
+              <a
+                href={SERVICE.directionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-bold text-emerald-700 shadow-sm transition-all duration-300 hover:bg-emerald-50 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-600"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  className="h-4 w-4"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                  />
+                </svg>
+                Get Directions
+              </a>
+            </div>
           </div>
+
         </div>
       </div>
     </section>

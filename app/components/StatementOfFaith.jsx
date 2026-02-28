@@ -1,195 +1,187 @@
-import { useState, memo, useCallback } from "react";
+import { memo, useState, useCallback } from "react";
 
-// ─── Belief data ──────────────────────────────────────────────────────────────
-const BELIEFS = [
+// ─── Official JFAAC Statement of Faith articles ───────────────────────────────
+const ARTICLES = [
   {
-    id:        1,
-    icon:      "bible",
-    title:     "The Holy Scriptures",
-    summary:   "We believe the Bible is the inspired, infallible Word of God.",
-    detail:    "We believe the Holy Bible, the Old and New Testaments, is the inspired Word of God, without error in the original writings, the complete revelation of His will for the salvation of men, and the divine and final authority for all Christian faith and life. (2 Timothy 3:16–17; 2 Peter 1:20–21)",
-    verse:     { text: "All Scripture is God-breathed and is useful for teaching, rebuking, correcting and training in righteousness.", ref: "2 Timothy 3:16" },
+    id:        "I",
+    title:     "The Triune God",
+    description:
+      "There is one God, who is infinitely perfect, existing eternally in three persons: Father, Son, and Holy Spirit.",
+    scripture: "Deuteronomy 6:4; Matthew 28:19; 2 Corinthians 13:14",
   },
   {
-    id:        2,
-    icon:      "trinity",
-    title:     "The Holy Trinity",
-    summary:   "We believe in one God — Father, Son, and Holy Spirit.",
-    detail:    "We believe in one God, Creator of all things, infinitely perfect, and eternally existing in three persons: Father, Son, and Holy Spirit. Each person of the Trinity is fully and equally God, sharing one divine nature, distinct in person and role but unified in will, purpose, and glory. (Matthew 28:19; 2 Corinthians 13:14)",
-    verse:     { text: "Go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit.", ref: "Matthew 28:19" },
+    id:        "II",
+    title:     "The Lord Jesus Christ",
+    description:
+      "Jesus Christ is true God and true man. He was conceived by the Holy Spirit and born of the Virgin Mary. He died upon the cross, the Just for the unjust, as a substitutionary sacrifice, and all who believe in Him are justified on the ground of His shed blood. He arose from the dead according to the Scriptures. He is now at the right hand of the Majesty on high as our great High Priest. He will come again to establish His kingdom of righteousness and peace.",
+    scripture: "John 1:1, 14; Luke 1:35; 1 Peter 3:18; Romans 5:9; 1 Corinthians 15:4; Hebrews 4:14–16; Acts 1:11",
   },
   {
-    id:        3,
-    icon:      "christ",
-    title:     "Jesus Christ, Our Lord",
-    summary:   "We believe in the deity, humanity, death, and resurrection of Jesus Christ.",
-    detail:    "We believe that Jesus Christ is true God and true man, having been conceived by the Holy Spirit and born of the virgin Mary. He died on the cross as a sacrifice for our sins according to the Scriptures. On the third day He rose bodily from the dead, ascended to the right hand of the Father, and will personally return in power and glory. (John 1:1,14; 1 Corinthians 15:3–4)",
-    verse:     { text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.", ref: "John 3:16" },
-  },
-  {
-    id:        4,
-    icon:      "spirit",
+    id:        "III",
     title:     "The Holy Spirit",
-    summary:   "We believe the Holy Spirit convicts, regenerates, and empowers believers.",
-    detail:    "We believe that the ministry of the Holy Spirit is to glorify the Lord Jesus Christ, and during this age to convict men, regenerate the believing sinner, indwell, guide, instruct, and empower the believer for godly living and service. We affirm the present ministry of the Spirit and all the gifts He sovereignly distributes. (John 16:7–14; Acts 1:8; 1 Corinthians 12:4–11)",
-    verse:     { text: "But you will receive power when the Holy Spirit comes on you; and you will be my witnesses... to the ends of the earth.", ref: "Acts 1:8" },
+    description:
+      "The Holy Spirit is a Divine Person, sent to indwell, guide, teach, empower the believer, and convince the world of sin, of righteousness, and of judgment.",
+    scripture: "John 16:7–14; Acts 1:8; Romans 8:9–11; Ephesians 1:13–14",
   },
   {
-    id:        5,
-    icon:      "salvation",
-    title:     "Salvation by Grace",
-    summary:   "We believe salvation is a gift of God, received through faith in Christ alone.",
-    detail:    "We believe that the Lord Jesus Christ died for our sins and that all who believe in Him are declared righteous through His shed blood. Salvation is entirely by the grace of God through faith — not by works, ritual, or human effort. Every truly saved and born-again person is eternally secure in Christ. (Ephesians 2:8–9; Romans 3:23–24; John 10:28–29)",
-    verse:     { text: "For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God.", ref: "Ephesians 2:8" },
+    id:        "IV",
+    title:     "The Holy Scriptures",
+    description:
+      "The Old and New Testaments, inerrant as originally given, were verbally inspired by God and are a complete revelation of His will for the salvation of men. They constitute the divine and only rule of Christian faith and practice.",
+    scripture: "2 Timothy 3:16–17; 2 Peter 1:20–21; Psalm 119:105; John 17:17",
   },
   {
-    id:        6,
-    icon:      "church",
+    id:        "V",
+    title:     "The Nature of Man and Eternal Destiny",
+    description:
+      "Man was originally created in the image and likeness of God; he fell through disobedience, incurring thereby both physical and spiritual death. All men are born with a sinful nature, are separated from the life of God, and can be saved only through the atoning work of the Lord Jesus Christ. The portion of the impenitent and unbelieving is existence forever in conscious torment; and that of the believer, in everlasting joy and bliss.",
+    scripture: "Genesis 1:26–27; Romans 3:23; 5:12; Ephesians 2:1–3; Revelation 20:15; John 3:16",
+  },
+  {
+    id:        "VI",
+    title:     "Salvation",
+    description:
+      "Salvation has been provided through Jesus Christ for all men; and those who repent and believe in Him are born again of the Holy Spirit, receive the gift of eternal life, and become the children of God.",
+    scripture: "John 3:16–17; Acts 2:38; Romans 10:9–10; Titus 3:4–7; 1 John 5:11–13",
+  },
+  {
+    id:        "VII",
+    title:     "Sanctification and the Fullness of the Holy Spirit",
+    description:
+      "It is the will of God that each believer should be filled with the Holy Spirit and be sanctified wholly, being separated from sin and the world and fully dedicated to the will of God, thereby receiving power for holy living and effective service. This is both a crisis and a progressive experience wrought in the life of the believer subsequent to conversion.",
+    scripture: "1 Thessalonians 5:23–24; Ephesians 5:18; Acts 1:8; Romans 12:1–2; 2 Corinthians 7:1",
+  },
+  {
+    id:        "VIII",
+    title:     "Divine Healing",
+    description:
+      "Provision is made in the redemptive work of the Lord Jesus Christ for the healing of the mortal body. Prayer for the sick and anointing with oil are taught in the Scriptures and are privileges for the Church in this present age.",
+    scripture: "Isaiah 53:4–5; Matthew 8:16–17; James 5:14–15; Mark 16:17–18",
+  },
+  {
+    id:        "IX",
     title:     "The Church",
-    summary:   "We believe the Church is the body of Christ, called to worship and mission.",
-    detail:    "We believe the Church consists of all who have been born again through faith in Christ. The local church is a community of believers committed to worship, the teaching of God's Word, the ordinances of baptism and the Lord's Supper, fellowship, and the Great Commission. Every believer is called to be an active, contributing member of a local church body. (Matthew 16:18; Ephesians 1:22–23; Hebrews 10:24–25)",
-    verse:     { text: "And let us consider how we may spur one another on toward love and good deeds, not giving up meeting together.", ref: "Hebrews 10:24–25" },
+    description:
+      "The Church consists of all those who believe in the Lord Jesus Christ, are redeemed through His blood, and are born again of the Holy Spirit. Christ is the Head of the Body, the Church, which has been commissioned by Him to go into all the world as a witness, preaching the Gospel to all nations. The local church is a body of believers in Christ who are joined together for the worship of God, for edification through the Word of God, for prayer, fellowship, the proclamation of the Gospel, and observance of the ordinances of baptism and the Lord's Supper.",
+    scripture: "Ephesians 1:22–23; Matthew 28:18–20; Acts 2:41–47; 1 Corinthians 11:23–26",
   },
   {
-    id:        7,
-    icon:      "resurrection",
-    title:     "Resurrection & Eternal Life",
-    summary:   "We believe in the bodily resurrection of all people and life everlasting.",
-    detail:    "We believe in the resurrection of both the saved and the lost — the saved unto eternal life in the presence of God, and the lost unto eternal separation from God. We believe in the personal, visible, and imminent return of the Lord Jesus Christ. This blessed hope purifies the believer and motivates faithful service. (1 Thessalonians 4:16–17; Revelation 20:11–15; John 5:28–29)",
-    verse:     { text: "For the Lord himself will come down from heaven… and the dead in Christ will rise first.", ref: "1 Thessalonians 4:16" },
+    id:        "X",
+    title:     "The Resurrection",
+    description:
+      "There shall be a bodily resurrection of the just and the unjust; for the former, a resurrection unto life; for the latter, a resurrection unto judgment.",
+    scripture: "John 5:28–29; 1 Corinthians 15:20–23; Revelation 20:11–15; Daniel 12:2",
   },
   {
-    id:        8,
-    icon:      "mission",
-    title:     "The Great Commission",
-    summary:   "We believe every believer is sent to make disciples of all nations.",
-    detail:    "We believe it is the obligation and privilege of every follower of Jesus Christ to witness and make disciples of all nations. Missions — both local and global — are at the heart of who we are as a church. JFAAC Katsutadai is committed to cross-cultural ministry, reflected in our multilingual, multinational congregation. (Matthew 28:18–20; Acts 1:8; Romans 10:14–15)",
-    verse:     { text: "Therefore go and make disciples of all nations, baptizing them… and teaching them to obey everything I have commanded you.", ref: "Matthew 28:19–20" },
+    id:        "XI",
+    title:     "The Second Coming of Christ",
+    description:
+      "The second coming of the Lord Jesus Christ is imminent and will be personal, visible, and premillennial. This is the believer's blessed hope and is a vital truth which is an incentive to holy living and faithful service.",
+    scripture: "1 Thessalonians 4:13–17; Titus 2:13; Acts 1:11; Revelation 20:1–6",
   },
 ];
 
-// ─── SVG icon map ─────────────────────────────────────────────────────────────
-const ICONS = {
-  bible: (
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-  ),
-  trinity: (
-    <>
-      <circle cx="12" cy="5"  r="2.5" />
-      <circle cx="5"  cy="17" r="2.5" />
-      <circle cx="19" cy="17" r="2.5" />
-      <path strokeLinecap="round" d="M12 7.5L5.5 15M12 7.5L18.5 15M7 17h10" />
-    </>
-  ),
-  christ: (
-    <path strokeLinecap="round" strokeLinejoin="round" d="M11 2h2v7h7v2h-7v11h-2V11H4V9h7V2z" />
-  ),
-  spirit: (
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c0 0-4 4-4 8s4 8 4 8M12 3c0 0 4 4 4 8s-4 8-4 8M3 11h18M5 7s2 2 7 2 7-2 7-2M5 15s2-2 7-2 7 2 7 2" />
-  ),
-  salvation: (
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-  ),
-  church: (
-    <>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2M5 21H3" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 21V12h6v9M12 3v4M10 5h4" />
-    </>
-  ),
-  resurrection: (
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-  ),
-  mission: (
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-  ),
-};
+// First 6 go left, last 5 go right
+const LEFT_ARTICLES  = ARTICLES.slice(0, 6);  // I – VI
+const RIGHT_ARTICLES = ARTICLES.slice(6);     // VII – XI
 
-// ─── BeliefCard ───────────────────────────────────────────────────────────────
-const BeliefCard = memo(({ belief, isOpen, onToggle }) => {
-  const { icon, title, summary, detail, verse } = belief;
+// ─── Chevron icon ─────────────────────────────────────────────────────────────
+const ChevronIcon = memo(({ open }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2.5}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={`h-4 w-4 shrink-0 transition-transform duration-300 ${
+      open ? "rotate-180 text-emerald-600" : "text-slate-400"
+    }`}
+    aria-hidden="true"
+  >
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+));
 
-  return (
-    <div
+// ─── Single accordion item ────────────────────────────────────────────────────
+const AccordionItem = memo(({ article, isOpen, onToggle }) => (
+  <div
+    className={[
+      "overflow-hidden rounded-2xl border transition-all duration-300",
+      isOpen
+        ? "border-emerald-300 shadow-md shadow-emerald-100/60"
+        : "border-slate-200 bg-white hover:border-emerald-200 hover:shadow-sm",
+    ].join(" ")}
+  >
+    {/* Trigger */}
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-expanded={isOpen}
+      aria-controls={`panel-${article.id}`}
+      id={`trigger-${article.id}`}
       className={[
-        "group rounded-2xl border bg-white transition-all duration-300",
-        isOpen
-          ? "border-emerald-300 shadow-lg shadow-emerald-100/60"
-          : "border-slate-100 shadow-sm hover:border-emerald-200 hover:shadow-md",
+        "flex w-full items-center gap-3 px-4 py-4 text-left transition-colors duration-200",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-inset",
+        isOpen ? "bg-gradient-to-r from-emerald-50 to-teal-50/60" : "bg-white",
       ].join(" ")}
     >
-      {/* ── Accordion trigger ── */}
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-expanded={isOpen}
-        aria-controls={`belief-body-${belief.id}`}
-        className="flex w-full items-center gap-4 px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-inset rounded-2xl"
-      >
-        {/* Icon */}
-        <span
-          className={[
-            "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors duration-300",
-            isOpen ? "bg-emerald-600 text-white" : "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100",
-          ].join(" ")}
-          aria-hidden="true"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-5 w-5">
-            {ICONS[icon]}
-          </svg>
-        </span>
-
-        <div className="flex-1 min-w-0">
-          <p className="text-base font-bold text-slate-800">{title}</p>
-          <p className="mt-0.5 text-sm text-slate-500 line-clamp-1">{summary}</p>
-        </div>
-
-        {/* Chevron */}
-        <span
-          className={[
-            "ml-2 flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300",
-            isOpen ? "bg-emerald-600 text-white rotate-180" : "bg-slate-100 text-slate-400 group-hover:bg-emerald-50 group-hover:text-emerald-600",
-          ].join(" ")}
-          aria-hidden="true"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-4 w-4">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </span>
-      </button>
-
-      {/* ── Accordion body ── */}
-      <div
-        id={`belief-body-${belief.id}`}
-        role="region"
-        aria-labelledby={`belief-trigger-${belief.id}`}
+      {/* Roman numeral badge */}
+      <span
         className={[
-          "overflow-hidden transition-all duration-500 ease-in-out",
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0",
+          "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-xs font-black transition-colors duration-200",
+          isOpen
+            ? "border-emerald-600 bg-emerald-600 text-white"
+            : "border-emerald-300 text-emerald-700",
         ].join(" ")}
+        aria-hidden="true"
       >
-        <div className="px-6 pb-6">
-          {/* Divider */}
-          <div className="mb-5 h-px bg-emerald-100" />
+        {article.id}
+      </span>
 
-          <p className="mb-5 text-sm leading-relaxed text-slate-600">{detail}</p>
+      {/* Title */}
+      <span
+        className={`flex-1 text-sm font-bold tracking-tight transition-colors duration-200 sm:text-base ${
+          isOpen ? "text-emerald-800" : "text-slate-800"
+        }`}
+      >
+        {article.title}
+      </span>
 
-          {/* Bible verse highlight */}
-          <figure className="relative rounded-xl border-l-4 border-emerald-500 bg-emerald-50 px-5 py-4">
-            <blockquote className="text-sm font-medium italic leading-relaxed text-slate-700">
-              "{verse.text}"
-            </blockquote>
-            <figcaption className="mt-2 text-xs font-bold text-emerald-600 not-italic">
-              — {verse.ref}
-            </figcaption>
-          </figure>
+      <ChevronIcon open={isOpen} />
+    </button>
+
+    {/* Collapsible panel — CSS grid-rows trick, no JS height calc */}
+    <div
+      id={`panel-${article.id}`}
+      role="region"
+      aria-labelledby={`trigger-${article.id}`}
+      className={[
+        "grid transition-all duration-500 ease-in-out",
+        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+      ].join(" ")}
+    >
+      <div className="overflow-hidden">
+        <div className="relative border-t border-emerald-100 bg-white px-5 py-5">
+          {/* Left accent bar */}
+          <div
+            className="absolute left-0 top-0 bottom-0 w-1 rounded-bl-2xl bg-emerald-500"
+            aria-hidden="true"
+          />
+          <p className="text-sm leading-7 text-slate-600">{article.description}</p>
+          <p className="mt-4 text-xs italic text-slate-400">
+            <span className="not-italic font-semibold text-emerald-600">Scripture: </span>
+            {article.scripture}
+          </p>
         </div>
       </div>
     </div>
-  );
-});
+  </div>
+));
 
 // ─── StatementOfFaith ─────────────────────────────────────────────────────────
-function StatementOfFaith({ beliefs = BELIEFS }) {
+function StatementOfFaith() {
+  // One open at a time — null means all closed
   const [openId, setOpenId] = useState(null);
 
   const handleToggle = useCallback((id) => {
@@ -197,74 +189,137 @@ function StatementOfFaith({ beliefs = BELIEFS }) {
   }, []);
 
   return (
-    <section
-      aria-labelledby="faith-heading"
-      className="bg-slate-50 py-20 sm:py-28"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <main aria-labelledby="sof-main-heading">
 
-        {/* ── Section header ── */}
-        <div className="mb-16 grid gap-10 lg:grid-cols-2 lg:items-end">
-          <div>
-            <span className="mb-3 inline-block rounded-full bg-emerald-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-700">
-              Our Beliefs
-            </span>
-            <h2 id="faith-heading" className="text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl lg:text-5xl">
-              What We{" "}
-              <span className="text-emerald-600">Stand For</span>
-            </h2>
-            <div className="mt-5 h-1 w-12 rounded-full bg-emerald-500" />
-          </div>
-          <p className="text-base leading-relaxed text-slate-500 lg:text-lg">
-            Our Statement of Faith reflects the timeless truths of Scripture that have anchored the Christian church for centuries. These are the convictions we gather around, teach from, and live by as a community.
-          </p>
-        </div>
-
-        {/* ── Two-column accordion grid ── */}
-        <div className="grid gap-4 lg:grid-cols-2">
-          {beliefs.map((belief) => (
-            <BeliefCard
-              key={belief.id}
-              belief={belief}
-              isOpen={openId === belief.id}
-              onToggle={() => handleToggle(belief.id)}
-            />
-          ))}
-        </div>
-
-        {/* ── Closing affirmation banner ── */}
-        <div className="mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-600 px-8 py-12 text-center shadow-xl shadow-emerald-200">
-          {/* Decorative cross */}
-          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-white/15 text-white" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
-              <path d="M11 2h2v7h7v2h-7v11h-2V11H4V9h7V2z" />
-            </svg>
-          </div>
-
-          <h3 className="mb-3 text-2xl font-extrabold text-white sm:text-3xl">
-            These Truths Unite Us
-          </h3>
-          <p className="mx-auto mb-8 max-w-xl text-sm leading-relaxed text-emerald-100 sm:text-base">
-            We welcome all who are seeking. Whether you are new to faith or have walked with God for decades, you are invited to explore these truths with us every Sunday.
+      {/* ── Page header ── */}
+      <header className="bg-white">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <h1
+            id="sof-main-heading"
+            className="text-4xl font-black tracking-tight text-slate-900 sm:text-5xl"
+          >
+            Statement of Faith
+          </h1>
+          <p className="mt-2 text-xl font-semibold text-slate-400 sm:text-2xl">
+            Jesus For All Alliance Church
           </p>
 
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href="/visit"
-              className="inline-block rounded-full bg-white px-7 py-3 text-sm font-bold text-emerald-700 shadow-sm transition-all duration-300 hover:bg-emerald-50 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-600"
-            >
-              Join Us This Sunday
-            </a>
-            <a
-              href="/about"
-              className="inline-block rounded-full border-2 border-white/60 px-7 py-3 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10 hover:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-600"
-            >
-              Learn More About Us
-            </a>
+          <div className="mt-6 flex items-center gap-4" aria-hidden="true">
+            <div className="h-px flex-1 bg-slate-200" />
+            <div className="h-1 w-16 rounded-full bg-emerald-500" />
+            <div className="h-px flex-1 bg-slate-200" />
+          </div>
+
+          <p className="mt-6 text-base leading-8 text-slate-600">
+            The official Statement of Faith of Jesus For All Alliance Church — Katsutadai. These scripturally grounded convictions are the foundation of our worship, fellowship, and mission. Select any article below to read it in full.
+          </p>
+
+          <div className="mt-6 rounded-xl border border-emerald-100 bg-emerald-50 px-5 py-3">
+            <p className="text-xs leading-relaxed text-slate-500">
+              <span className="font-bold text-emerald-700">Official Statement of Faith · JFAAC Katsutadai.</span>{" "}
+              In accordance with the evangelical Alliance tradition and our commitment to the full authority of Holy Scripture.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      {/* ── Two-column accordion ─────────────────────────────────────────────────
+          Mobile  (< md): single column, all 11 articles stacked
+          Desktop (md+):  two columns side-by-side
+                          Left  → Articles I – VI   (6 items)
+                          Right → Articles VII – XI  (5 items)
+          This cuts the visual page length nearly in half on desktop.
+      ── */}
+      <div className="bg-slate-50 py-6">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+
+          <p className="mb-4 text-right text-xs font-semibold text-slate-400">
+            {ARTICLES.length} articles of faith — tap to expand
+          </p>
+
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:items-start md:gap-4">
+
+            {/* Left column — Articles I – VI */}
+            <div className="flex flex-col gap-3">
+              {LEFT_ARTICLES.map((article) => (
+                <AccordionItem
+                  key={article.id}
+                  article={article}
+                  isOpen={openId === article.id}
+                  onToggle={() => handleToggle(article.id)}
+                />
+              ))}
+            </div>
+
+            {/* Right column — Articles VII – XI */}
+            <div className="flex flex-col gap-3">
+              {RIGHT_ARTICLES.map((article) => (
+                <AccordionItem
+                  key={article.id}
+                  article={article}
+                  isOpen={openId === article.id}
+                  onToggle={() => handleToggle(article.id)}
+                />
+              ))}
+            </div>
+
           </div>
         </div>
       </div>
-    </section>
+
+      {/* ── Closing footer ── */}
+      <footer className="border-t border-slate-200 bg-white py-6">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+
+          <div className="grid gap-8 sm:grid-cols-2 sm:gap-12">
+            <div>
+              <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">
+                Our Affirmation
+              </h2>
+              <p className="text-sm leading-7 text-slate-600">
+                These eleven articles represent the foundational beliefs of Jesus For All Alliance Church — convictions held as living truths that shape our worship, discipleship, community, and mission.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">
+                Questions of Faith?
+              </h2>
+              <p className="text-sm leading-7 text-slate-600">
+                Our pastoral team is available and glad to discuss any of these doctrinal positions with you personally.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <a
+                  href="mailto:pastor@jfaac-katsutadai.org"
+                  className="text-sm font-semibold text-emerald-700 transition-colors hover:text-emerald-500 focus-visible:outline-none"
+                >
+                  pastor@jfaac-katsutadai.org →
+                </a>
+                <a
+                  href="/visit"
+                  className="inline-block rounded-full border-2 border-emerald-600 px-5 py-1.5 text-sm font-bold text-emerald-700 transition-all duration-300 hover:bg-emerald-600 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+                >
+                  Visit Us This Sunday
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 flex flex-col items-center text-center">
+            <div className="mb-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" aria-hidden="true" />
+            <figure>
+              <blockquote className="text-sm font-medium italic leading-7 text-slate-500">
+                "Sanctify them in the truth; your word is truth."
+              </blockquote>
+              <figcaption className="mt-1.5 text-xs font-bold not-italic text-emerald-600">
+                — John 17:17
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </footer>
+
+    </main>
   );
 }
 

@@ -239,7 +239,7 @@ function VisitUs() {
       <section aria-labelledby="location-heading" className="bg-white py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-          <div className="mb-14 flex flex-col items-center text-center">
+          <div className="mb-4 flex flex-col items-center text-center">
             <SectionPill>Getting Here</SectionPill>
             <h2 id="location-heading" className="mt-4 text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">
               Find Us in Katsutadai

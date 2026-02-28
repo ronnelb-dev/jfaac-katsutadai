@@ -29,12 +29,12 @@ function MorningDevotions({ devotion = defaultDevotion, onReadMore }) {
   return (
     <section
       aria-labelledby="devotion-heading"
-      className="bg-white py-20 sm:py-28"
+      className="bg-white py-6"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* ── Section header ── */}
-        <div className="mb-14 flex flex-col items-center text-center">
+        <div className="mb-4 flex flex-col items-center text-center">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-700">
             <CrossIcon />
             Morning Devotions

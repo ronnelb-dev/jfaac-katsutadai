@@ -228,70 +228,9 @@ function History() {
     <main aria-labelledby="history-page-heading">
 
       {/* ══════════════════════════════════════════════════════════════
-          HERO — cinematic opening
-      ══════════════════════════════════════════════════════════════ */}
-      <section
-        aria-label="Hero introduction"
-        className="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 text-center"
-      >
-        {/* Background image */}
-        <img
-          src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=1800&q=80"
-          alt=""
-          role="presentation"
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
-        />
-
-        {/* Multi-layer gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/80" aria-hidden="true" />
-        {/* Emerald tint wash */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-emerald-900/30 via-transparent to-teal-900/20" aria-hidden="true" />
-
-        {/* Content */}
-        <div className="relative z-10 max-w-4xl">
-          {/* Cross emblem */}
-          <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/20 backdrop-blur-sm">
-            <CrossIcon />
-          </div>
-
-          {/* Pill */}
-          <span className="mb-6 inline-block rounded-full border border-emerald-400/40 bg-emerald-500/20 px-5 py-2 text-xs font-bold uppercase tracking-widest text-emerald-300 backdrop-blur-sm">
-            JFAAC Katsutadai · Est. 1998
-          </span>
-
-          {/* Main heading */}
-          <h1
-            id="history-page-heading"
-            className="mb-6 text-5xl font-black leading-none tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-8xl"
-          >
-            Our Journey
-            <br />
-            <span className="text-emerald-400">of Faith</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl">
-            From a prayer gathering of seven families to a thriving, multicultural church community — this is the story God has been writing in Katsutadai since 1998.
-          </p>
-
-          {/* Scroll indicator */}
-          <ScrollIndicator />
-        </div>
-
-        {/* Bottom wave */}
-        <div className="absolute bottom-0 left-0 right-0" aria-hidden="true">
-          <svg viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" className="w-full h-16 sm:h-20">
-            <path d="M0 80V50C360 10 720 70 1080 30C1260 10 1380 40 1440 50V80H0Z" fill="white" />
-          </svg>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════
           INTRO STATEMENT
       ══════════════════════════════════════════════════════════════ */}
-      <section aria-label="Church introduction" className="bg-white py-20 sm:py-24">
+      <section aria-label="Church introduction" className="bg-white py-6 sm:py-6">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
           <figure>
             {/* Decorative open-quote */}
@@ -315,7 +254,7 @@ function History() {
       ══════════════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="timeline-heading"
-        className="relative bg-slate-50 py-20 sm:py-28"
+        className="relative bg-slate-50 py-4 sm:py-4"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
@@ -376,7 +315,7 @@ function History() {
       {/* ══════════════════════════════════════════════════════════════
           CLOSING CTA
       ══════════════════════════════════════════════════════════════ */}
-      <section aria-label="Closing invitation" className="bg-white py-20 sm:py-28">
+      <section aria-label="Closing invitation" className="bg-white py-6 sm:py-6">
         <div
           ref={ctaRef}
           className={[
@@ -385,7 +324,7 @@ function History() {
           ].join(" ")}
         >
           {/* Decorative pulsing cross */}
-          <div className="relative mx-auto mb-10 flex h-20 w-20 items-center justify-center" aria-hidden="true">
+          <div className="relative mx-auto mb-5 flex h-20 w-20 items-center justify-center" aria-hidden="true">
             <div className="absolute inset-0 animate-ping rounded-full bg-emerald-100 opacity-50" style={{ animationDuration: "3s" }} />
             <div className="absolute inset-2 rounded-full bg-emerald-100" />
             <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-white shadow-md">
@@ -397,7 +336,7 @@ function History() {
             The Story Continues —{" "}
             <span className="text-emerald-600">With You</span>
           </h2>
-          <p className="mx-auto mb-10 max-w-xl text-base leading-relaxed text-slate-500 sm:text-lg">
+          <p className="mx-auto mb-5 max-w-xl text-base leading-relaxed text-slate-500 sm:text-lg">
             Every person who walks through our doors becomes part of the next chapter of this story. We believe yours is meant to be written here. We'd love to meet you this Sunday.
           </p>
 
@@ -417,7 +356,7 @@ function History() {
           </div>
 
           {/* Final scripture */}
-          <p className="mt-14 text-sm italic text-slate-400">
+          <p className="mt-6 text-sm italic text-slate-400">
             "For I know the plans I have for you, declares the Lord — plans to prosper you and not to harm you, plans to give you hope and a future." — Jeremiah 29:11
           </p>
         </div>

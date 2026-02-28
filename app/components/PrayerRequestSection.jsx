@@ -64,7 +64,7 @@ function PrayerRequestSection() {
   return (
     <section
       aria-labelledby="prayer-heading"
-      className="bg-emerald-50 py-20 sm:py-28"
+      className="bg-emerald-50 py-6 sm:py-6"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
