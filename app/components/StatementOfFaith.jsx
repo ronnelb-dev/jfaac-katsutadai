@@ -213,13 +213,6 @@ function StatementOfFaith() {
           <p className="mt-6 text-base leading-8 text-slate-600">
             The official Statement of Faith of Jesus For All Alliance Church — Katsutadai. These scripturally grounded convictions are the foundation of our worship, fellowship, and mission. Select any article below to read it in full.
           </p>
-
-          <div className="mt-6 rounded-xl border border-emerald-100 bg-emerald-50 px-5 py-3">
-            <p className="text-xs leading-relaxed text-slate-500">
-              <span className="font-bold text-emerald-700">Official Statement of Faith · JFAAC Katsutadai.</span>{" "}
-              In accordance with the evangelical Alliance tradition and our commitment to the full authority of Holy Scripture.
-            </p>
-          </div>
         </div>
       </header>
 
@@ -266,58 +259,6 @@ function StatementOfFaith() {
           </div>
         </div>
       </div>
-
-      {/* ── Closing footer ── */}
-      <footer className="border-t border-slate-200 bg-white py-6">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-
-          <div className="grid gap-8 sm:grid-cols-2 sm:gap-12">
-            <div>
-              <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">
-                Our Affirmation
-              </h2>
-              <p className="text-sm leading-7 text-slate-600">
-                These eleven articles represent the foundational beliefs of Jesus For All Alliance Church — convictions held as living truths that shape our worship, discipleship, community, and mission.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">
-                Questions of Faith?
-              </h2>
-              <p className="text-sm leading-7 text-slate-600">
-                Our pastoral team is available and glad to discuss any of these doctrinal positions with you personally.
-              </p>
-              <div className="mt-4 flex flex-wrap gap-3">
-                <a
-                  href="mailto:pastor@jfaac-katsutadai.org"
-                  className="text-sm font-semibold text-emerald-700 transition-colors hover:text-emerald-500 focus-visible:outline-none"
-                >
-                  pastor@jfaac-katsutadai.org →
-                </a>
-                <a
-                  href="/visit"
-                  className="inline-block rounded-full border-2 border-emerald-600 px-5 py-1.5 text-sm font-bold text-emerald-700 transition-all duration-300 hover:bg-emerald-600 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
-                >
-                  Visit Us This Sunday
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-col items-center text-center">
-            <div className="mb-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" aria-hidden="true" />
-            <figure>
-              <blockquote className="text-sm font-medium italic leading-7 text-slate-500">
-                "Sanctify them in the truth; your word is truth."
-              </blockquote>
-              <figcaption className="mt-1.5 text-xs font-bold not-italic text-emerald-600">
-                — John 17:17
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </footer>
 
     </main>
   );

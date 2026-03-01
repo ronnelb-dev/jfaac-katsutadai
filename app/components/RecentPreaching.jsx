@@ -24,17 +24,6 @@ const PREACHINGS = [
     date: "February 9, 2025",
     youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
-  {
-    id: 3,
-    image:
-      "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=800&q=80",
-    title: "Rebuilt: Lessons from Nehemiah",
-    description:
-      "From the rubble of Jerusalem's walls to the restoration of a people's identity — Nehemiah's story speaks powerfully to anyone who feels broken and is wondering if God can rebuild what has fallen.",
-    pastor: "Pastor Kenji Watanabe",
-    date: "February 2, 2025",
-    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-  },
 ];
 
 // ─── Play icon ───────────────────────────────────────────────────────────────
@@ -193,7 +182,7 @@ function RecentPreaching({
         </div>
 
         {/* ── Cards grid ── */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
           {preachings.map((preaching) => (
             <PreachingCard key={preaching.id} preaching={preaching} />
           ))}
