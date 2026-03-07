@@ -68,6 +68,8 @@ const HISTORY = [
   },
 ];
 
+const INITIAL_VISIBLE = 2;
+
 // ─── Scroll-reveal hook ───────────────────────────────────────────────────────
 function useReveal(threshold = 0.15) {
   const ref = useRef(null);
@@ -131,10 +133,25 @@ const ScrollArrow = memo(() => (
   </svg>
 ));
 
+const ChevronDown = memo(({ expanded }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2.5}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={`h-4 w-4 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+    aria-hidden="true"
+  >
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+));
+
 // ─── TimelineItem ─────────────────────────────────────────────────────────────
-const TimelineItem = memo(({ item, index }) => {
+const TimelineItem = memo(({ item, index, animationIndex }) => {
   const [ref, visible] = useReveal(0.1);
-  const isLeft = index % 2 === 0; // even → image left, text right (desktop)
+  const isLeft = index % 2 === 0;
 
   return (
     <div
@@ -143,24 +160,20 @@ const TimelineItem = memo(({ item, index }) => {
         "relative grid gap-8 transition-all duration-700 ease-out lg:grid-cols-2 lg:gap-16",
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12",
       ].join(" ")}
-      style={{ transitionDelay: `${index * 80}ms` }}
+      style={{ transitionDelay: `${animationIndex * 80}ms` }}
     >
       {/* ── Image ── */}
       <div className={`relative ${isLeft ? "lg:order-1" : "lg:order-2"}`}>
         <div className="group relative overflow-hidden rounded-2xl shadow-xl shadow-slate-200/60">
-          {/* Green glow on hover */}
           <div
             className="absolute inset-0 z-10 rounded-2xl ring-0 ring-emerald-400/0 transition-all duration-500 group-hover:ring-4 group-hover:ring-emerald-400/40"
             aria-hidden="true"
           />
-
-          {/* Year badge — overlapping the image */}
           <div className="absolute left-4 top-4 z-20 rounded-full bg-emerald-600 px-4 py-1.5 shadow-lg shadow-emerald-900/30">
             <span className="text-sm font-black tracking-widest text-white">
               {item.year}
             </span>
           </div>
-
           <div className="aspect-[4/3] bg-slate-200">
             <img
               src={item.image}
@@ -170,12 +183,8 @@ const TimelineItem = memo(({ item, index }) => {
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
-
-          {/* Bottom gradient */}
           <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent" />
         </div>
-
-        {/* Decorative dot cluster */}
         <div
           className={`absolute -bottom-4 grid grid-cols-3 gap-1.5 opacity-30 ${isLeft ? "-left-4" : "-right-4"}`}
           aria-hidden="true"
@@ -193,26 +202,19 @@ const TimelineItem = memo(({ item, index }) => {
           isLeft ? "lg:order-2" : "lg:order-1 lg:text-right",
         ].join(" ")}
       >
-        {/* Year label (mobile only — desktop shows on image) */}
         <span className="mb-3 inline-block self-start rounded-full bg-emerald-100 px-3 py-1 text-xs font-black tracking-widest text-emerald-700 lg:hidden">
           {item.year}
         </span>
-
-        {/* Accent line */}
         <div
           className={`mb-5 h-1 w-10 rounded-full bg-emerald-500 ${isLeft ? "" : "lg:ml-auto"}`}
           aria-hidden="true"
         />
-
         <h3 className="mb-4 text-2xl font-extrabold leading-snug tracking-tight text-slate-800 sm:text-3xl">
           {item.title}
         </h3>
-
         <p className="mb-6 text-base leading-relaxed text-slate-500">
           {item.body}
         </p>
-
-        {/* Quote */}
         {item.quote && (
           <figure
             className={`relative rounded-xl border-l-4 border-emerald-500 bg-emerald-50 px-5 py-4 ${isLeft ? "" : "lg:border-l-0 lg:border-r-4 lg:text-right"}`}
@@ -225,7 +227,7 @@ const TimelineItem = memo(({ item, index }) => {
         )}
       </div>
 
-      {/* ── Center dot on the timeline line (desktop) ── */}
+      {/* ── Center dot ── */}
       <div
         className="absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:flex"
         aria-hidden="true"
@@ -276,21 +278,25 @@ const SectionHeader = memo(({ pill, heading, accent, body }) => (
 
 // ─── History ──────────────────────────────────────────────────────────────────
 function History() {
-  // Closing CTA reveal
   const [ctaRef, ctaVisible] = useReveal(0.2);
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleItems = showAll ? HISTORY : HISTORY.slice(0, INITIAL_VISIBLE);
+  const hiddenCount = HISTORY.length - INITIAL_VISIBLE;
+
+  const handleToggle = useCallback(() => {
+    setShowAll((prev) => !prev);
+  }, []);
 
   return (
     <main aria-labelledby="history-page-heading">
-      {/* ══════════════════════════════════════════════════════════════
-          INTRO STATEMENT
-      ══════════════════════════════════════════════════════════════ */}
+      {/* ══ INTRO STATEMENT ══ */}
       <section
         aria-label="Church introduction"
         className="bg-white py-6 sm:py-6"
       >
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
           <figure>
-            {/* Decorative open-quote */}
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-400">
               <QuoteIcon />
             </div>
@@ -302,7 +308,6 @@ function History() {
               — Pastor Hiroshi Nakamura, Founding Pastor
             </figcaption>
           </figure>
-
           <div
             className="mx-auto mt-10 h-px max-w-xs bg-gradient-to-r from-transparent via-emerald-200 to-transparent"
             aria-hidden="true"
@@ -310,52 +315,7 @@ function History() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════
-          TIMELINE
-      ══════════════════════════════════════════════════════════════ */}
-      <section
-        aria-labelledby="timeline-heading"
-        className="relative bg-slate-50 py-4 sm:py-4"
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            pill="Milestones"
-            heading="A Timeline of"
-            accent="God's Faithfulness"
-            body="Every year, every milestone, every face — part of a story that is still unfolding."
-          />
-
-          {/* Timeline container */}
-          <div className="relative">
-            {/* Vertical center line — desktop only */}
-            <div
-              className="absolute inset-y-0 left-1/2 hidden w-0.5 -translate-x-1/2 overflow-hidden rounded-full bg-gradient-to-b from-emerald-200 via-emerald-400 to-emerald-200 lg:block"
-              aria-hidden="true"
-            />
-
-            {/* Items */}
-            <div className="flex flex-col gap-24 lg:gap-32">
-              {HISTORY.map((item, index) => (
-                <TimelineItem key={item.id} item={item} index={index} />
-              ))}
-            </div>
-
-            {/* End cap dot */}
-            <div
-              className="relative mt-16 hidden justify-center lg:flex"
-              aria-hidden="true"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-emerald-600 to-teal-500 shadow-lg shadow-emerald-300/50 ring-4 ring-white">
-                <CrossIcon />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════
-          STATS STRIP
-      ══════════════════════════════════════════════════════════════ */}
+      {/* ══ STATS STRIP ══ */}
       <section aria-label="Church statistics" className="bg-emerald-600 py-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <dl className="grid grid-cols-2 gap-8 text-center lg:grid-cols-4">
@@ -378,9 +338,7 @@ function History() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════
-          CLOSING CTA
-      ══════════════════════════════════════════════════════════════ */}
+      {/* ══ CLOSING CTA ══ */}
       <section
         aria-label="Closing invitation"
         className="bg-white py-6 sm:py-6"
@@ -393,17 +351,94 @@ function History() {
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-8",
           ].join(" ")}
-        >
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href="/visit"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white shadow-sm transition-all duration-300 hover:scale-105 hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
-            >
-              VIEW MORE
-            </a>
+        />
+      </section>
+
+      {/* ══ TIMELINE ══ */}
+      <section
+        aria-labelledby="timeline-heading"
+        className="relative bg-slate-50 py-4 sm:py-4"
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            pill="Milestones"
+            heading="A Timeline of"
+            accent="God's Faithfulness"
+            body="Every year, every milestone, every face — part of a story that is still unfolding."
+          />
+
+          <div className="relative">
+            {/* Vertical center line */}
+            <div
+              className="absolute inset-y-0 left-1/2 hidden w-0.5 -translate-x-1/2 overflow-hidden rounded-full bg-gradient-to-b from-emerald-200 via-emerald-400 to-emerald-200 lg:block"
+              aria-hidden="true"
+            />
+
+            {/* Items */}
+            <div className="flex flex-col gap-24 lg:gap-32">
+              {visibleItems.map((item, index) => (
+                <TimelineItem
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  animationIndex={index}
+                />
+              ))}
+            </div>
+
+            {/* Fade + "View More" overlay when collapsed */}
+            {!showAll && (
+              <div className="relative -mt-40 pt-40">
+                {/* Gradient fade */}
+                <div
+                  className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-transparent to-slate-50"
+                  aria-hidden="true"
+                />
+
+                {/* Expand button */}
+                <div className="relative flex flex-col items-center gap-3 pt-6">
+                  <p className="text-sm text-slate-400">
+                    {hiddenCount} more milestone{hiddenCount !== 1 ? "s" : ""} in this story
+                  </p>
+                  <button
+                    onClick={handleToggle}
+                    className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white shadow-sm transition-all duration-300 hover:scale-105 hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+                  >
+                    VIEW MORE
+                    <ChevronDown expanded={false} />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* End cap dot — only when fully expanded */}
+            {showAll && (
+              <>
+                <div
+                  className="relative mt-16 hidden justify-center lg:flex"
+                  aria-hidden="true"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-emerald-600 to-teal-500 shadow-lg shadow-emerald-300/50 ring-4 ring-white">
+                    <CrossIcon />
+                  </div>
+                </div>
+
+                {/* Collapse button */}
+                <div className="mt-12 flex flex-col items-center gap-3">
+                  <button
+                    onClick={handleToggle}
+                    className="inline-flex items-center gap-2 rounded-full border-2 border-emerald-600 px-8 py-4 text-sm font-bold uppercase tracking-widest text-emerald-600 transition-all duration-300 hover:scale-105 hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+                  >
+                    SHOW LESS
+                    <ChevronDown expanded={true} />
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
+
     </main>
   );
 }
