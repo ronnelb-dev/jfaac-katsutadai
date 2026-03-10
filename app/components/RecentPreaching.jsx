@@ -155,7 +155,7 @@ const PreachingCard = memo(({ preaching }) => {
 // ─── RecentPreaching ─────────────────────────────────────────────────────────
 function RecentPreaching({
   preachings = PREACHINGS,
-  viewAllUrl = "https://www.youtube.com/@jfaackatsutadai3958",
+  viewAllUrl = "https://www.youtube.com/channel/UCTnlPOw2fIqo7uaM7bujbiA",
 }) {
   return (
     <section

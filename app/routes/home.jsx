@@ -67,7 +67,8 @@ export default function Home() {
       <Navigation />
       <HeroSection />
       <MorningDevotions />
-      <RecentPreaching />
+      <RecentPreaching viewAllUrl="https://www.youtube.com/channel/UCTnlPOw2fIqo7uaM7bujbiA" />
+      {/* ── 3. Sunday service info + map — lazy loaded ──────────────────── */}
       <Suspense fallback={<SectionLoader />}>
         <SundayServiceSection />
       </Suspense>

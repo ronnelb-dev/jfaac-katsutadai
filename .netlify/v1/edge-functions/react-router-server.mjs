@@ -6,6 +6,6 @@
       generator: "@netlify/vite-plugin-react-router@2.1.3",
       cache: "manual",
       path: "/*",
-      excludedPath: ["/.netlify/*","/favicon.ico","/jfaac-logo.png","/.vite/manifest.json","/assets/about-CVuZbTCp.js","/assets/chunk-EPOLDU6W-BE_pzx_j.js","/assets/entry.client-C1BAS7CP.js","/assets/Footer-D2BTlEYa.js","/assets/home-DISmwVAE.js","/assets/manifest-59fcb4df.js","/assets/ministries-events-BEsD2l-T.js","/assets/root-BSm566LY.js","/assets/root-DarpnHQl.css","/assets/SundayServiceSection-BoIbvvR_.js","/assets/support-us-D0xIUL1O.js","/assets/visit-us-qamJRkKd.js"],
+      excludedPath: ["/.netlify/*","/favicon.ico","/jfaac-logo.png","/.vite/manifest.json","/assets/chunk-EPOLDU6W-BE_pzx_j.js","/assets/entry.client-C1BAS7CP.js","/assets/home-BrVMY1Sq.js","/assets/manifest-442ba7fa.js","/assets/root-BLXU2-87.css","/assets/root-isWWm2zK.js","/assets/SundayServiceSection-BoIbvvR_.js","/ping","/api/*","/webhooks/*"],
     };
     
