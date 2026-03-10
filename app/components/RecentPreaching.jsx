@@ -24,17 +24,6 @@ const PREACHINGS = [
     date: "February 9, 2025",
     youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
-  {
-    id: 3,
-    image:
-      "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=800&q=80",
-    title: "Rebuilt: Lessons from Nehemiah",
-    description:
-      "From the rubble of Jerusalem's walls to the restoration of a people's identity — Nehemiah's story speaks powerfully to anyone who feels broken and is wondering if God can rebuild what has fallen.",
-    pastor: "Pastor Kenji Watanabe",
-    date: "February 2, 2025",
-    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-  },
 ];
 
 // ─── Play icon ───────────────────────────────────────────────────────────────
@@ -171,11 +160,11 @@ function RecentPreaching({
   return (
     <section
       aria-labelledby="preaching-heading"
-      className="bg-slate-50 py-20 sm:py-28"
+      className="bg-slate-50 py-6 sm:py-6"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ── Section header ── */}
-        <div className="mb-14 flex flex-col items-center text-center">
+        <div className="mb-4 flex flex-col items-center text-center">
           <span className="mb-3 inline-block rounded-full bg-emerald-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-700">
             Recent Preaching
           </span>
@@ -193,14 +182,14 @@ function RecentPreaching({
         </div>
 
         {/* ── Cards grid ── */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
           {preachings.map((preaching) => (
             <PreachingCard key={preaching.id} preaching={preaching} />
           ))}
         </div>
 
         {/* ── View All button ── */}
-        <div className="mt-12 flex justify-center">
+        <div className="mt-6 flex justify-center">
           <a
             href={viewAllUrl}
             target="_blank"

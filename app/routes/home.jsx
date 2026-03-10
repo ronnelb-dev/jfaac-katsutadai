@@ -7,6 +7,8 @@ import HeroSection from "../components/HeroSection";
 import MorningDevotions from "../components/MorningDevotions";
 import PrayerRequestSection from "../components/PrayerRequestSection";
 import RecentPreaching from "../components/RecentPreaching";
+import ChurchHistory from "../components/ChurchHistory";
+import StatementOfFaith from "../components/StatementOfFaith";
 
 // ─── Lazily loaded (below the fold — reduces initial bundle) ─────────────────
 const SundayServiceSection = lazy(
@@ -62,20 +64,17 @@ const SectionLoader = memo(() => (
 export default function Home() {
   return (
     <main id="main-content">
-      {/* ── 1. Hero slider — eager, above fold ─────────────────────────── */}
       <Navigation />
       <HeroSection />
-
-      {/* ── 2. Morning devotions ────────────────────────────────────────── */}
       <MorningDevotions />
       <RecentPreaching viewAllUrl="https://www.youtube.com/channel/UCTnlPOw2fIqo7uaM7bujbiA" />
       {/* ── 3. Sunday service info + map — lazy loaded ──────────────────── */}
       <Suspense fallback={<SectionLoader />}>
         <SundayServiceSection />
       </Suspense>
-
-      {/* ── 4. Prayer request form ──────────────────────────────────────── */}
       <PrayerRequestSection />
+      <ChurchHistory />
+      <StatementOfFaith />
       <Footer />
     </main>
   );
