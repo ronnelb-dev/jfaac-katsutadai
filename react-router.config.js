@@ -1,8 +1,7 @@
-import { vercelPreset } from '@vercel/react-router/vite';
+import { reactRouter } from "@react-router/dev/vite";
+import { vercelPreset } from "@vercel/react-router/vite";
+import { defineConfig } from "vite";
 
-export default {
-  // Config options...
-  // Server-side render by default, to enable SPA mode set this to `false`
-  ssr: true,
-  presets: [vercelPreset()],
-};
+export default defineConfig({
+  plugins: [reactRouter({ presets: [vercelPreset()] })],
+});

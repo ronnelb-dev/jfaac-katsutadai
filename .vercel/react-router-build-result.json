@@ -1,0 +1,165 @@
+{
+  "buildManifest": {
+    "serverBundles": {
+      "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0": {
+        "id": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+        "file": "build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    },
+    "routeIdToServerBundleId": {
+      "routes/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/about": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/ministries-events": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/visit-us": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/support-us": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+    },
+    "routes": {
+      "root": {
+        "id": "root",
+        "file": "app/root.jsx",
+        "path": "",
+        "config": {}
+      },
+      "routes/home": {
+        "id": "routes/home",
+        "parentId": "root",
+        "file": "app/routes/home.jsx",
+        "index": true,
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/about": {
+        "id": "routes/about",
+        "parentId": "root",
+        "file": "app/routes/about.jsx",
+        "path": "about",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/ministries-events": {
+        "id": "routes/ministries-events",
+        "parentId": "root",
+        "file": "app/routes/ministries-events.jsx",
+        "path": "ministries-events",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/visit-us": {
+        "id": "routes/visit-us",
+        "parentId": "root",
+        "file": "app/routes/visit-us.jsx",
+        "path": "visit-us",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/support-us": {
+        "id": "routes/support-us",
+        "parentId": "root",
+        "file": "app/routes/support-us.jsx",
+        "path": "support-us",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    }
+  },
+  "reactRouterConfig": {
+    "appDirectory": "C:/Playground/jfaac-katsutadai/app",
+    "basename": "/",
+    "buildDirectory": "C:/Playground/jfaac-katsutadai/build",
+    "future": {
+      "unstable_optimizeDeps": false,
+      "unstable_subResourceIntegrity": false,
+      "unstable_trailingSlashAwareDataRequests": false,
+      "v8_middleware": false,
+      "v8_splitRouteModules": false,
+      "v8_viteEnvironmentApi": false
+    },
+    "routes": {
+      "root": {
+        "id": "root",
+        "file": "root.jsx",
+        "path": ""
+      },
+      "routes/home": {
+        "id": "routes/home",
+        "parentId": "root",
+        "file": "routes/home.jsx",
+        "index": true
+      },
+      "routes/about": {
+        "id": "routes/about",
+        "parentId": "root",
+        "file": "routes/about.jsx",
+        "path": "about"
+      },
+      "routes/ministries-events": {
+        "id": "routes/ministries-events",
+        "parentId": "root",
+        "file": "routes/ministries-events.jsx",
+        "path": "ministries-events"
+      },
+      "routes/visit-us": {
+        "id": "routes/visit-us",
+        "parentId": "root",
+        "file": "routes/visit-us.jsx",
+        "path": "visit-us"
+      },
+      "routes/support-us": {
+        "id": "routes/support-us",
+        "parentId": "root",
+        "file": "routes/support-us.jsx",
+        "path": "support-us"
+      }
+    },
+    "routeDiscovery": {
+      "mode": "lazy",
+      "manifestPath": "/__manifest"
+    },
+    "serverBuildFile": "index.js",
+    "serverModuleFormat": "esm",
+    "ssr": true,
+    "allowedActionOrigins": false,
+    "unstable_routeConfig": [
+      {
+        "id": "root",
+        "path": "",
+        "file": "root.jsx",
+        "children": [
+          {
+            "file": "routes/home.jsx",
+            "index": true
+          },
+          {
+            "file": "routes/about.jsx",
+            "path": "about"
+          },
+          {
+            "file": "routes/ministries-events.jsx",
+            "path": "ministries-events"
+          },
+          {
+            "file": "routes/visit-us.jsx",
+            "path": "visit-us"
+          },
+          {
+            "file": "routes/support-us.jsx",
+            "path": "support-us"
+          }
+        ]
+      }
+    ]
+  },
+  "viteConfig": {
+    "build": {
+      "assetsDir": "assets"
+    }
+  }
+}
